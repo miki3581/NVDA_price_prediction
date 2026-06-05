@@ -4,10 +4,10 @@ import yfinance
 def load_data(ticker="NVDA"):
 
     data = yfinance.download(ticker, period='3y', interval='1d')
-    
     # Extracting 'Close' price
-    df = data['Close'].copy()
-    df.columns = ['Price']
+    df = data.drop(columns=['Open', 'High', 'Low']).copy()
+    #df = data['Close'].copy()
+    df.columns = ['Price', 'Volume']
     
     # Cleaning up the data
     df.dropna(inplace=True)
